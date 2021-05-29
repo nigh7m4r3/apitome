@@ -11,10 +11,12 @@ module Apitome
 
     initializer :assets, group: :all do |app|
       apitome.root ||= app.root
-
-      config.assets.precompile += ["apitome/*.css", "apitome/*.js"]
-      config.assets.paths << root.join("assets", "stylesheets").to_s
-      config.assets.paths << root.join("assets", "javascripts").to_s
+      
+      if config.respond_to?(:assets)
+        config.assets.precompile += ["apitome/*.css", "apitome/*.js"]
+        config.assets.paths << root.join("assets", "stylesheets").to_s
+        config.assets.paths << root.join("assets", "javascripts").to_s      
+      end
     end
 
     config.after_initialize do |app|
